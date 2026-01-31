@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TOGA KKN — Bayam Putih, Bayam Merah, Kunyit, Serai</title>
+  <meta name="description" content="Website edukasi KKN: Bayam Putih, Bayam Merah, Kunyit, Serai. Pengertian, manfaat, cara tanam, cara pakai, dan catatan aman." />
+  <style>
+    :root{
+      --bg:#070b14;
+      --panel:#0e1730;
+      --panel2:#0b1326;
+      --text:#eaf0ff;
+      --muted:#b8c4e6;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 14px 34px rgba(0,0,0,.35);
+      --radius:18px;
+
+      --gold:#f6b31a;
+      --green:#27c07d;
+      --red:#ff5b5b;
+      --teal:#42c7ff;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 80% -10%, rgba(246,179,26,.22), transparent 55%),
+        radial-gradient(900px 600px at 10% 10%, rgba(39,192,125,.18), transparent 50%),
+        radial-gradient(900px 600px at 40% 110%, rgba(66,199,255,.14), transparent 52%),
+        linear-gradient(180deg, #050812, var(--bg));
+      line-height:1.6;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:1080px; margin:0 auto; padding:18px 16px 60px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:8px 0 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      padding:10px 12px;
+      border-radius:999px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 18px rgba(0,0,0,.18);
+      font-size:13px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .brand b{color:var(--text)}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s transform, .18s background;
+      display:inline-flex; gap:8px; align-items:center;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.10)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(39,192,125,.95), rgba(39,192,125,.70));
+      color:#04150d;
+      border-color: rgba(39,192,125,.55);
+    }
+    .btn.gold{
+      background: linear-gradient(135deg, rgba(246,179,26,.95), rgba(246,179,26,.70));
+      color:#1b1200;
+      border-color: rgba(246,179,26,.55);
+    }
+
+    header.hero{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      padding:18px;
+    }
+    header.hero::before{
+      content:"";
+      position:absolute; inset:-60px -140px auto auto;
+      width:360px; height:360px;
+      background: radial-gradient(circle, rgba(39,192,125,.28), transparent 60%);
+      transform: rotate(18deg);
+    }
+    header.hero::after{
+      content:"";
+      position:absolute; inset:auto auto -70px -150px;
+      width:420px; height:420px;
+      background: radial-gradient(circle, rgba(246,179,26,.22), transparent 65%);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      align-items:stretch;
+      position:relative;
+      z-index:1;
+    }
+    h1{margin:6px 0 10px; font-size:32px; line-height:1.15}
+    .sub{margin:0; color:var(--muted); font-size:15.5px}
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+    .chip{
+      font-size:13px; color:var(--muted);
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+      padding:7px 10px;
+      border-radius:999px;
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(14,23,48,.85), rgba(11,19,38,.85));
+      border-radius: var(--radius);
+      padding:14px;
+      box-shadow: 0 12px 22px rgba(0,0,0,.22);
+    }
+    .panel h3{margin:0 0 8px; font-size:14px; color:var(--muted); font-weight:800; letter-spacing:.2px}
+    .panel .row{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .pill{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-size:13px;
+      color:var(--muted);
+    }
+    .pill b{color:var(--text)}
+
+    nav.menu{
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .tab{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:800;
+      transition:.18s transform, .18s background, .18s color;
+    }
+    .tab:hover{transform: translateY(-1px); background:rgba(255,255,255,.08); color:var(--text)}
+    .tab.active{background:rgba(39,192,125,.16); border-color:rgba(39,192,125,.38); color:var(--text)}
+
+    main{margin-top:16px}
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-80px -120px auto auto;
+      width:260px; height:260px;
+      background: radial-gradient(circle, rgba(66,199,255,.16), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .head{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      position:relative; z-index:1;
+    }
+    .title{
+      margin:0;
+      font-size:18px;
+      line-height:1.2;
+    }
+    .latin{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      font-style:italic;
+    }
+    .tag{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      font-size:12.5px;
+      font-weight:900;
+      white-space:nowrap;
+      background:rgba(0,0,0,.14);
+      color:var(--muted);
+    }
+    .tag.green{border-color:rgba(39,192,125,.35); background:rgba(39,192,125,.12); color:#dff8ec}
+    .tag.gold{border-color:rgba(246,179,26,.35); background:rgba(246,179,26,.12); color:#fff0cd}
+    .tag.red{border-color:rgba(255,91,91,.35); background:rgba(255,91,91,.12); color:#ffe1e1}
+
+    .desc{margin:10px 0 0; color:var(--muted); position:relative; z-index:1}
+    .mini{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+      position:relative; z-index:1;
+    }
+    .mini > div{
+      padding:10px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.12);
+    }
+    .mini b{display:block; font-size:13px}
+    .mini span{display:block; color:var(--muted); font-size:13px; margin-top:2px}
+
+    .card .cta{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      position:relative; z-index:1;
+    }
+
+    .btn.small{padding:9px 11px; border-radius:12px; font-weight:900}
+    .btn.outline{background:rgba(255,255,255,.04)}
+
+    .notice{
+      border:1px solid rgba(255,91,91,.35);
+      background: rgba(255,91,91,.10);
+      padding:12px;
+      border-radius:14px;
+      color: #ffdede;
+      margin-top:14px;
+    }
+    .notice b{color:#fff}
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.62);
+      display:none;
+      align-items:center; justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .modal{
+      max-width:760px;
+      width:100%;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(14,23,48,.98), rgba(11,19,38,.98));
+      box-shadow: 0 18px 46px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    .modal-header{
+      padding:14px 16px;
+      display:flex; gap:10px; align-items:flex-start; justify-content:space-between;
+      border-bottom:1px solid var(--line);
+    }
+    .modal-header h2{margin:0; font-size:18px}
+    .modal-body{padding:14px 16px; color:var(--muted)}
+    .modal-body h3{margin:14px 0 8px; font-size:14px; color:#dfe7ff}
+    .modal-body ul{margin:6px 0 0 18px}
+    .modal-body li{margin:6px 0}
+    .close{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      padding:9px 11px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    footer{
+      margin-top:18px;
+      padding-top:12px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    /* Print */
+    @media print{
+      body{background:#fff; color:#111}
+      .actions, nav.menu, .btn{display:none !important}
+      header.hero, .card{box-shadow:none}
+      .brand, .pill, .tag{border-color:#ccc; background:#f6f6f6; color:#333}
+      .desc, .sub, .muted{color:#333}
+      .notice{border-color:#999; background:#f2f2f2; color:#222}
+    }
+
+    /* Mobile */
+    @media (max-width: 880px){
+      .hero-grid{grid-template-columns:1fr}
+      .card{grid-column: span 12}
+      h1{font-size:28px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">🌿 <b>TOGA KKN</b> • Edukasi Tanaman untuk Masyarakat</div>
+      <div class="actions">
+        <button class="btn primary" id="btnShare">🔗 Bagikan</button>
+        <button class="btn gold" id="btnPrint">🖨️ Cetak</button>
+        <button class="btn" id="btnCopy">📋 Salin Link</button>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Bayam & Tanaman Obat untuk Keluarga</h1>
+          <p class="sub">
+            Halaman ini dibuat untuk membantu masyarakat mengenal <b>bayam putih, bayam merah, kunyit, dan serai</b>.
+            Isinya singkat, mudah dipahami, dan cocok dibuka lewat HP setelah scan QR Code.
+          </p>
+          <div class="chips">
+            <div class="chip">📌 Cocok untuk QR Code</div>
+            <div class="chip">📱 Nyaman dibaca di HP</div>
+            <div class="chip">🌱 Bisa ditanam di pekarangan</div>
+            <div class="chip">🧾 Ada cara tanam & cara pakai</div>
+          </div>
+
+          <nav class="menu" aria-label="Filter kategori">
+            <button class="tab active" data-filter="all">Semua</button>
+            <button class="tab" data-filter="sayur">Sayur Sehat</button>
+            <button class="tab" data-filter="obat">Tanaman Obat</button>
+          </nav>
+        </div>
+
+        <div class="panel">
+          <h3>INFO KKN (bisa diganti)</h3>
+          <div class="row">
+            <div class="pill">📍 Desa: <b id="desa">Isi Nama Desa</b></div>
+            <div class="pill">👩‍🎓 Tim: <b id="tim">Mahasiswa KKN</b></div>
+            <div class="pill">📅 Tanggal: <b id="tanggal"></b></div>
+          </div>
+          <div class="notice">
+            <b>Catatan:</b> Informasi ini untuk edukasi. Jika ada keluhan kesehatan serius, tetap dianjurkan konsultasi ke tenaga kesehatan.
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="grid" id="cards"></div>
+    </main>
+
+    <footer>
+      <div>© TOGA KKN — Edukasi Tanaman Pekarangan</div>
+      <div>Tips: gunakan foto asli kegiatan KKN agar warga makin tertarik.</div>
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Detail Tanaman">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="mTitle">Judul</h2>
+          <div class="latin" id="mLatin"></div>
+        </div>
+        <button class="close" id="mClose">✕ Tutup</button>
+      </div>
+      <div class="modal-body" id="mBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Data tanaman (bisa kamu tambah nanti) =====
+    const PLANTS = [
+      {
+        id: "bayam-putih",
+        category: "sayur",
+        tag: { text: "Sayur Sehat", cls: "green" },
+        name: "Bayam Putih",
+        latin: "Bayam (Amaranthus sp.) — sebutan umum di masyarakat",
+        short:
+          "Sayur yang mudah ditanam, cepat panen, dan bagus untuk gizi keluarga. Cocok untuk program KKN karena cepat terlihat hasilnya.",
+        pengertian:
+          "Bayam putih adalah sebutan umum untuk jenis bayam dengan daun hijau cerah dan pucuk yang tampak lebih muda. Bayam dikenal sebagai sayuran sumber vitamin dan mineral.",
+        manfaat: [
+          "Mendukung pembentukan darah karena kandungan zat besi dan folat.",
+          "Mendukung daya tahan tubuh (vitamin A dan C).",
+          "Mendukung kesehatan pencernaan karena serat.",
+          "Baik sebagai sayur untuk anak-anak dan keluarga (gizi harian)."
+        ],
+        caraPakai: [
+          "Diolah sebagai sayur bening/tumis.",
+          "Agar gizi terjaga: masak sebentar (jangan terlalu lama)."
+        ],
+        caraTanam: [
+          "Media: tanah gembur + kompos. Bisa di polybag atau bedeng kecil.",
+          "Tabur benih tipis, tutup tanah tipis, siram lembap (tidak becek).",
+          "Panen umumnya 20–30 hari (tergantung varietas dan perawatan)."
+        ],
+        catatan: [
+          "Cuci bersih sebelum diolah.",
+          "Jika punya kondisi kesehatan khusus, atur konsumsi sesuai anjuran tenaga kesehatan."
+        ],
+        quickfacts: [
+          { k: "Mudah didapat", v: "Benih banyak dijual" },
+          { k: "Cocok KKN", v: "Cepat tumbuh" }
+        ]
+      },
+
+      {
+        id: "bayam-merah",
+        category: "sayur",
+        tag: { text: "Sayur Sehat", cls: "red" },
+        name: "Bayam Merah",
+        latin: "Bayam merah (Amaranthus tricolor) — umum dipakai masyarakat",
+        short:
+          "Bayam dengan warna merah keunguan yang menarik. Cocok untuk edukasi gizi karena tampilannya unik dan mudah disukai.",
+        pengertian:
+          "Bayam merah adalah jenis bayam dengan daun berwarna merah keunguan. Warna ini berasal dari pigmen alami (antosianin) yang juga dikenal sebagai antioksidan.",
+        manfaat: [
+          "Mendukung pembentukan darah (zat besi dan folat).",
+          "Mengandung antioksidan yang membantu melindungi sel tubuh.",
+          "Mendukung kesehatan pencernaan (serat).",
+          "Baik untuk variasi menu keluarga agar tidak bosan."
+        ],
+        caraPakai: [
+          "Diolah jadi sayur bening, tumis, atau campuran bubur.",
+          "Masak sebentar agar warna & nutrisi tetap bagus."
+        ],
+        caraTanam: [
+          "Cara tanam mirip bayam putih: tabur benih tipis, tutup tipis, siram lembap.",
+          "Sinar matahari cukup, jangan terlalu padat agar tumbuh besar.",
+          "Panen umumnya 20–30 hari."
+        ],
+        catatan: [
+          "Cuci bersih sebelum diolah.",
+          "Warna merah bisa memudar jika terlalu lama dimasak."
+        ],
+        quickfacts: [
+          { k: "Menarik", v: "Warna merah unik" },
+          { k: "Cocok KKN", v: "Mudah dirawat" }
+        ]
+      },
+
+      {
+        id: "kunyit",
+        category: "obat",
+        tag: { text: "Tanaman Obat", cls: "gold" },
+        name: "Kunyit",
+        latin: "Curcuma longa",
+        short:
+          "Rimpang berwarna kuning-oranye yang terkenal sebagai bumbu dan ramuan tradisional. Cocok untuk TOGA rumah.",
+        pengertian:
+          "Kunyit adalah tanaman rimpang dari kelompok jahe-jahean. Bagian yang sering dimanfaatkan adalah rimpang (umbi) yang berwarna kuning-oranye.",
+        manfaat: [
+          "Mendukung antioksidan dan kesehatan tubuh secara umum.",
+          "Mendukung kenyamanan pencernaan (ramuan tradisional).",
+          "Sering digunakan sebagai bahan minuman herbal tradisional.",
+          "Bisa dipakai sebagai bumbu masakan untuk menambah aroma dan warna alami."
+        ],
+        caraPakai: [
+          "Minuman kunyit hangat: iris 1 ruas kunyit, rebus 10–15 menit, minum hangat.",
+          "Sebagai bumbu: campurkan pada masakan (sayur/kuah)."
+        ],
+        caraTanam: [
+          "Pilih rimpang kunyit segar yang punya mata tunas.",
+          "Tanam di tanah gembur/kompos, tutup 3–5 cm, siram secukupnya.",
+          "Tunas biasanya muncul 1–3 minggu (tergantung kondisi).",
+          "Panen rimpang umumnya 8–10 bulan (saat daun mulai menguning)."
+        ],
+        catatan: [
+          "Gunakan dalam jumlah wajar.",
+          "Jika hamil/menyusui atau konsumsi obat rutin, sebaiknya konsultasi tenaga kesehatan sebelum konsumsi rutin."
+        ],
+        quickfacts: [
+          { k: "Bibit mudah", v: "Rimpang dapur" },
+          { k: "Tahan", v: "Cocok pekarangan" }
+        ]
+      },
+
+      {
+        id: "serai",
+        category: "obat",
+        tag: { text: "Tanaman Obat", cls: "green" },
+        name: "Serai",
+        latin: "Cymbopogon citratus",
+        short:
+          "Tanaman beraroma segar yang sering dipakai sebagai bumbu dan minuman hangat. Mudah ditanam dari batang.",
+        pengertian:
+          "Serai adalah tanaman herbal beraroma khas. Batangnya sering dipakai sebagai bumbu dan seduhan tradisional.",
+        manfaat: [
+          "Sering digunakan untuk membantu tubuh terasa lebih hangat dan nyaman.",
+          "Mendukung relaksasi (aroma segar).",
+          "Mendukung kenyamanan pencernaan (ramuan tradisional).",
+          "Sebagai bumbu dapur yang menambah cita rasa."
+        ],
+        caraPakai: [
+          "Seduhan serai: geprek 1–2 batang, seduh/rebus, minum hangat.",
+          "Campuran masakan: sup, kuah, tumisan."
+        ],
+        caraTanam: [
+          "Ambil batang serai yang masih segar (lebih bagus jika ada akar kecil).",
+          "Rendam pangkalnya di air 2–4 hari sampai akar keluar (opsional).",
+          "Tanam di tanah gembur, padatkan sedikit, siram secukupnya.",
+          "Letakkan di tempat cukup matahari. Serai cepat beradaptasi."
+        ],
+        catatan: [
+          "Gunakan dalam jumlah wajar.",
+          "Jika ada alergi/keluhan khusus, hentikan pemakaian dan konsultasi tenaga kesehatan."
+        ],
+        quickfacts: [
+          { k: "Paling mudah", v: "Cukup stek batang" },
+          { k: "Aroma", v: "Segar & disukai" }
+        ]
+      }
+    ];
+
+    // ===== Render kartu =====
+    const cardsEl = document.getElementById("cards");
+    let currentFilter = "all";
+
+    function makeCard(p){
+      const facts = p.quickfacts.map(x => `
+        <div><b>${x.k}</b><span>${x.v}</span></div>
+      `).join("");
+
+      return `
+        <section class="card" data-cat="${p.category}">
+          <div class="head">
+            <div>
+              <h2 class="title">${p.name}</h2>
+              <div class="latin">${p.latin}</div>
+            </div>
+            <div class="tag ${p.tag.cls}">${p.tag.text}</div>
+          </div>
+
+          <p class="desc">${p.short}</p>
+
+          <div class="mini">
+            ${facts}
+          </div>
+
+          <div class="cta">
+            <button class="btn small outline" data-open="${p.id}">📖 Lihat Detail</button>
+            <button class="btn small" data-scroll="top">⬆️ Ke Atas</button>
+          </div>
+        </section>
+      `;
+    }
+
+    function render(){
+      cardsEl.innerHTML = PLANTS.map(makeCard).join("");
+      applyFilter(currentFilter);
+    }
+
+    function applyFilter(filter){
+      currentFilter = filter;
+      document.querySelectorAll(".tab").forEach(t => {
+        t.classList.toggle("active", t.dataset.filter === filter);
+      });
+
+      document.querySelectorAll(".card").forEach(c => {
+        const cat = c.getAttribute("data-cat");
+        const show = (filter === "all") || (cat === filter);
+        c.style.display = show ? "" : "none";
+      });
+    }
+
+    // ===== Modal detail =====
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const mTitle = document.getElementById("mTitle");
+    const mLatin = document.getElementById("mLatin");
+    const mBody  = document.getElementById("mBody");
+    const mClose = document.getElementById("mClose");
+
+    function openModal(id){
+      const p = PLANTS.find(x => x.id === id);
+      if(!p) return;
+
+      mTitle.textContent = p.name;
+      mLatin.textContent = p.latin;
+
+      const list = arr => `<ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul>`;
+
+      mBody.innerHTML = `
+        <h3>Pengertian</h3>
+        <p>${p.pengertian}</p>
+
+        <h3>Manfaat</h3>
+        ${list(p.manfaat)}
+
+        <h3>Cara Pemanfaatan</h3>
+        ${list(p.caraPakai)}
+
+        <h3>Cara Tanam</h3>
+        ${list(p.caraTanam)}
+
+        <h3>Catatan Aman</h3>
+        ${list(p.catatan)}
+      `;
+
+      modalBackdrop.style.display = "flex";
+    }
+
+    function closeModal(){
+      modalBackdrop.style.display = "none";
+    }
+
+    // ===== Buttons: share / print / copy =====
+    document.getElementById("btnPrint").addEventListener("click", () => window.print());
+
+    document.getElementById("btnCopy").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(location.href);
+        alert("Link berhasil disalin!");
+      }catch(e){
+        prompt("Salin manual link ini:", location.href);
+      }
+    });
+
+    document.getElementById("btnShare").addEventListener("click", async () => {
+      const data = {
+        title: "TOGA KKN — Bayam & Tanaman Obat",
+        text: "Info singkat: Bayam putih, bayam merah, kunyit, serai (pengertian, manfaat, cara tanam).",
+        url: location.href
+      };
+      if(navigator.share){
+        try{ await navigator.share(data); }catch(e){}
+      }else{
+        try{
+          await navigator.clipboard.writeText(location.href);
+          alert("Perangkat belum mendukung bagikan. Link sudah disalin.");
+        }catch(e){
+          prompt("Salin manual link ini:", location.href);
+        }
+      }
+    });
+
+    // ===== Event Delegation =====
+    document.addEventListener("click", (e) => {
+      const openId = e.target.getAttribute("data-open");
+      if(openId) openModal(openId);
+
+      const scroll = e.target.getAttribute("data-scroll");
+      if(scroll === "top") window.scrollTo({top:0, behavior:"smooth"});
+
+      const tab = e.target.closest(".tab");
+      if(tab) applyFilter(tab.dataset.filter);
+
+      if(e.target === modalBackdrop) closeModal();
+    });
+
+    mClose.addEventListener("click", closeModal);
+    document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
+
+    // ===== Isi otomatis tanggal + opsional query string =====
+    (function(){
+      const d = new Date();
+      const opt = { year:"numeric", month:"long", day:"numeric" };
+      document.getElementById("tanggal").textContent = d.toLocaleDateString("id-ID", opt);
+
+      const p = new URLSearchParams(location.search);
+      const desa = p.get("desa");
+      const tim  = p.get("tim");
+      if(desa) document.getElementById("desa").textContent = desa;
+      if(tim)  document.getElementById("tim").textContent = tim;
+    })();
+
+    render();
+  </script>
+</body>
+</html>
